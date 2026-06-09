@@ -14,12 +14,12 @@ export default function UsersDirectoryPage() {
     // Mock data based on tab
     if (activeTab === 'students') {
       setUsers([
-        { id: '1', firstName: 'John', lastName: 'Doe', email: 'john@example.com', roleId: 'STU-1001', status: 'ACTIVE' },
-        { id: '2', firstName: 'Jane', lastName: 'Smith', email: 'jane@example.com', roleId: 'STU-1002', status: 'ACTIVE' },
+        { id: '1', firstName: 'John', lastName: 'Doe', email: 'john@example.com', registrationNo: 'STU-1001', department: 'Computer Science', status: 'ACTIVE' },
+        { id: '2', firstName: 'Jane', lastName: 'Smith', email: 'jane@example.com', registrationNo: 'STU-1002', department: 'Mechanical Engg', status: 'ACTIVE' },
       ]);
     } else {
       setUsers([
-        { id: '1', firstName: 'Dr. Alan', lastName: 'Turing', email: 'alan@university.edu', roleId: 'EMP-001', status: 'ACTIVE' },
+        { id: '1', firstName: 'Dr. Alan', lastName: 'Turing', email: 'alan@university.edu', registrationNo: 'EMP-001', department: 'Computer Science', status: 'ACTIVE' },
       ]);
     }
   }, [activeTab]);
@@ -67,7 +67,8 @@ export default function UsersDirectoryPage() {
             <TableRow>
               <TableHead>Name</TableHead>
               <TableHead>Email</TableHead>
-              <TableHead>{activeTab === 'students' ? 'Enrollment No.' : 'Employee ID'}</TableHead>
+              <TableHead>Registration No.</TableHead>
+              <TableHead>Department</TableHead>
               <TableHead>Status</TableHead>
               <TableHead className="text-right">Actions</TableHead>
             </TableRow>
@@ -82,7 +83,8 @@ export default function UsersDirectoryPage() {
                   {user.firstName} {user.lastName}
                 </TableCell>
                 <TableCell className="text-slate-600">{user.email}</TableCell>
-                <TableCell className="font-mono text-slate-500">{user.roleId}</TableCell>
+                <TableCell className="font-mono text-slate-500">{user.registrationNo}</TableCell>
+                <TableCell className="text-slate-600">{user.department}</TableCell>
                 <TableCell>
                   <span className="inline-flex px-2 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
                     {user.status}

@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, DownloadCloud, Users, Calendar, CheckSquare, Menu, X, LogOut, Building } from 'lucide-react';
+import { LayoutDashboard, DownloadCloud, Users, Calendar, CheckSquare, Menu, X, LogOut, Building, BookOpen, Banknote, Calculator, Settings } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
@@ -14,9 +14,15 @@ function cn(...inputs: (string | undefined | null | false)[]) {
 
 const navItems = [
   { name: 'IT Dashboard', href: '/client', icon: LayoutDashboard, section: 'IT Admin' },
+  { name: 'Ops Admins', href: '/client/admins', icon: Users, section: 'IT Admin' },
   { name: 'OTA Updater', href: '/client/updater', icon: DownloadCloud, section: 'IT Admin' },
+  { name: 'Billing Settings', href: '/client/settings/billing', icon: Settings, section: 'IT Admin' },
+  { name: 'HRMS Dashboard', href: '/client/hrms', icon: Users, section: 'HR & Finance' },
+  { name: 'Salary Config', href: '/client/hrms/salary', icon: Calculator, section: 'HR & Finance' },
+  { name: 'Voucher Verifications', href: '/client/billing/verifications', icon: Banknote, section: 'HR & Finance' },
   { name: 'Academic HQ', href: '/client/academic', icon: Building, section: 'LMS/SIS' },
   { name: 'User Directory', href: '/client/academic/users', icon: Users, section: 'LMS/SIS' },
+  { name: 'Course Catalog', href: '/client/academic/courses', icon: BookOpen, section: 'LMS/SIS' },
   { name: 'Operations', href: '/client/academic/operations', icon: Calendar, section: 'LMS/SIS' },
 ];
 
@@ -36,6 +42,38 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
           <div className="space-y-1">
             {navItems.filter(item => item.section === 'IT Admin').map((item) => {
               const isActive = pathname === item.href || (pathname.startsWith(`${item.href}/`) && item.href !== '/client');
+              return (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className={cn(
+                    "flex items-center px-4 py-3 rounded-lg transition-all duration-200 group relative",
+                    isActive 
+                      ? "bg-emerald-500/10 text-white" 
+                      : "hover:bg-white/5 hover:text-white"
+                  )}
+                >
+                  {isActive && (
+                    <motion.div
+                      layoutId="client-active-nav"
+                      className="absolute left-0 top-0 bottom-0 w-1 bg-emerald-400 rounded-r-full"
+                      initial={false}
+                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                    />
+                  )}
+                  <item.icon className={cn("w-5 h-5 mr-3", isActive ? "text-emerald-400" : "text-slate-400 group-hover:text-white")} />
+                  <span className="font-medium">{item.name}</span>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+
+        <div>
+          <p className="px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">HR & Finance</p>
+          <div className="space-y-1 mb-6">
+            {navItems.filter(item => item.section === 'HR & Finance').map((item) => {
+              const isActive = pathname === item.href || (pathname.startsWith(`${item.href}/`) && item.href !== '/client/hrms');
               return (
                 <Link
                   key={item.name}
