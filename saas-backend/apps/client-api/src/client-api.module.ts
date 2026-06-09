@@ -9,6 +9,11 @@ import { UsersModule } from './users/users.module';
 import { RolesModule } from './roles/roles.module';
 import { ClientConfigModule } from './config/client-config.module';
 import { UpdaterModule } from './updater/updater.module';
+import { StudentsModule } from './students/students.module';
+import { TeachersModule } from './teachers/teachers.module';
+import { CoursesModule } from './courses/courses.module';
+import { AttendanceModule } from './attendance/attendance.module';
+import { TimetableModule } from './timetable/timetable.module';
 
 @Module({
   imports: [
@@ -35,6 +40,11 @@ import { UpdaterModule } from './updater/updater.module';
     RolesModule,
     ClientConfigModule,
     UpdaterModule,
+    StudentsModule,
+    TeachersModule,
+    CoursesModule,
+    AttendanceModule,
+    TimetableModule,
   ],
   controllers: [ClientApiController],
   providers: [ClientApiService],

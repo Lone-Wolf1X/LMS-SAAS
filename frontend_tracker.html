@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frontend Tracker | Next Gen Innovations</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#0f172a',
+                            primary: '#6366f1',
+                            secondary: '#10b981',
+                            accent: '#f59e0b'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .progress-bar-animated {
+            transition: width 1s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased">
+    
+    <!-- Navbar -->
+    <nav class="bg-brand-dark text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <i class="fa-solid fa-layer-group text-brand-primary text-2xl mr-3"></i>
+                    <span class="font-bold text-xl tracking-wider">Next Gen Innovations Pvt Ltd</span>
+                </div>
+                <div>
+                    <span class="bg-brand-primary bg-opacity-20 text-blue-300 py-1 px-3 rounded-full text-sm font-medium border border-brand-primary">Frontend Project Tracker</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- Overall Progress -->
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-8">
+            <h2 class="text-lg font-semibold text-slate-700 mb-2">Overall Frontend Progress</h2>
+            <div class="flex items-center justify-between mb-2">
+                <span class="text-sm font-medium text-slate-500">Planning Phase</span>
+                <span class="text-sm font-bold text-brand-primary">100%</span>
+            </div>
+            <div class="w-full bg-slate-200 rounded-full h-4 overflow-hidden">
+                <div class="bg-brand-primary h-4 rounded-full progress-bar-animated" style="width: 100%"></div>
+            </div>
+        </div>
+
+        <div class="space-y-6">
+
+            <!-- Phase 5 -->
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="bg-slate-50 px-6 py-4 border-b border-slate-200 flex justify-between items-center">
+                    <div class="flex items-center">
+                        <span class="bg-brand-secondary text-white text-xs font-bold px-2 py-1 rounded mr-3">Phase 5</span>
+                        <h3 class="font-bold text-slate-800">Frontend Architecture Setup</h3>
+                    </div>
+                    <span class="px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">Completed</span>
+                </div>
+                <div class="p-6">
+                    <ul class="space-y-3">
+                        <li class="flex items-center text-sm">
+                            <i class="fa-solid fa-check-square text-brand-secondary mr-3 text-lg"></i>
+                            <span class="text-slate-700">Initialize Next.js App Router Project</span>
+                        </li>
+                        <li class="flex items-center text-sm">
+                            <i class="fa-solid fa-check-square text-brand-secondary mr-3 text-lg"></i>
+                            <span class="text-slate-700">Configure TailwindCSS & Global Theme Design Tokens</span>
+                        </li>
+                        <li class="flex items-center text-sm">
+                            <i class="fa-solid fa-check-square text-brand-secondary mr-3 text-lg"></i>
+                            <span class="text-slate-700">Build Shared Generic UI Components (Buttons, Modals)</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Phase 6 -->
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="bg-slate-50 px-6 py-4 border-b border-slate-200 flex justify-between items-center">
+                    <div class="flex items-center">
+                        <span class="bg-brand-secondary text-white text-xs font-bold px-2 py-1 rounded mr-3">Phase 6</span>
+                        <h3 class="font-bold text-slate-800">Central Hub (HQ) Portal UI</h3>
+                    </div>
+                    <span class="px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">Completed</span>
+                </div>
+                <div class="p-6">
+                    <ul class="space-y-3">
+                        <li class="flex items-center text-sm">
+                            <i class="fa-solid fa-check-square text-brand-secondary mr-3 text-lg"></i>
+                            <span class="text-slate-700">Superadmin Dashboard & Analytics Charts</span>
+                        </li>
+                        <li class="flex items-center text-sm">
+                            <i class="fa-solid fa-check-square text-brand-secondary mr-3 text-lg"></i>
+                            <span class="text-slate-700">License Management UI</span>
+                        </li>
+                        <li class="flex items-center text-sm">
+                            <i class="fa-solid fa-check-square text-brand-secondary mr-3 text-lg"></i>
+                            <span class="text-slate-700">Patch/Release Manager Interface</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Phase 7 -->
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="bg-slate-50 px-6 py-4 border-b border-slate-200 flex justify-between items-center">
+                    <div class="flex items-center">
+                        <span class="bg-brand-secondary text-white text-xs font-bold px-2 py-1 rounded mr-3">Phase 7</span>
+                        <h3 class="font-bold text-slate-800">Client Node: IT Admin Portal</h3>
+                    </div>
+                    <span class="px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">Completed</span>
+                </div>
+                <div class="p-6">
+                    <ul class="space-y-3">
+                        <li class="flex items-center text-sm">
+                            <i class="fa-solid fa-check-square text-brand-secondary mr-3 text-lg"></i>
+                            <span class="text-slate-700">Connection & License Status Dashboard</span>
+                        </li>
+                        <li class="flex items-center text-sm">
+                            <i class="fa-solid fa-check-square text-brand-secondary mr-3 text-lg"></i>
+                            <span class="text-slate-700">OTA Updater Interface</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Phase 8 -->
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="bg-slate-50 px-6 py-4 border-b border-slate-200 flex justify-between items-center">
+                    <div class="flex items-center">
+                        <span class="bg-brand-secondary text-white text-xs font-bold px-2 py-1 rounded mr-3">Phase 8</span>
+                        <h3 class="font-bold text-slate-800">Client Node: LMS/SIS Core Portal</h3>
+                    </div>
+                    <span class="px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">Completed</span>
+                </div>
+                <div class="p-6">
+                    <ul class="space-y-3">
+                        <li class="flex items-center text-sm">
+                            <i class="fa-solid fa-check-square text-brand-secondary mr-3 text-lg"></i>
+                            <span class="text-slate-700">Academic Operations Dashboard</span>
+                        </li>
+                        <li class="flex items-center text-sm">
+                            <i class="fa-solid fa-check-square text-brand-secondary mr-3 text-lg"></i>
+                            <span class="text-slate-700">Students & Teachers Datagrids</span>
+                        </li>
+                        <li class="flex items-center text-sm">
+                            <i class="fa-solid fa-check-square text-brand-secondary mr-3 text-lg"></i>
+                            <span class="text-slate-700">Attendance Marking & Timetable Views</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+        
+    </main>
+    
+    <footer class="text-center text-slate-500 text-sm mt-8 pb-8">
+        Frontend Tracker maintained dynamically by AI Agent.
+    </footer>
+</body>
+</html>
