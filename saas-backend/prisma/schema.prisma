@@ -1,0 +1,157 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// -----------------------------------------
+// SUPERADMIN & MULTI-TENANCY (Phase 1-2)
+// -----------------------------------------
+model Tenant {
+  id             String    @id @default(uuid())
+  name           String
+  registrationNo String    @unique
+  subdomain      String?   @unique
+  status         String    @default("ACTIVE") // ACTIVE, SUSPENDED
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  licenses       License[]
+  users          User[]
+  courses        Course[]
+  feeStructures  FeeStructure[]
+}
+
+model License {
+  id            String    @id @default(uuid())
+  tenantId      String
+  tenant        Tenant    @relation(fields: [tenantId], references: [id])
+  plan          String    // BASIC, PRO, ENTERPRISE
+  validUntil    DateTime
+  maxStudents   Int       @default(1000)
+  maxTeachers   Int       @default(50)
+  status        String    @default("ACTIVE")
+  createdAt     DateTime  @default(now())
+}
+
+// -----------------------------------------
+// AUTHENTICATION & RBAC (Phase 3)
+// -----------------------------------------
+model User {
+  id             String    @id @default(uuid())
+  tenantId       String
+  tenant         Tenant    @relation(fields: [tenantId], references: [id])
+  email          String    @unique
+  passwordHash   String
+  firstName      String
+  lastName       String
+  roleType       String    // IT_ADMIN, OPS_ADMIN, HR_ADMIN, TEACHER, STUDENT
+  
+  // Specific Metadata
+  registrationNo String?   // Student Enrollment No or Staff ID
+  department     String?
+  status         String    @default("ACTIVE")
+  
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  // Relationships
+  teacherCourses Course[]  @relation("CourseInstructor")
+  enrollments    Enrollment[]
+  invoices       StudentInvoice[]
+  payslips       Payslip[]
+}
+
+// -----------------------------------------
+// ACADEMICS / SIS (Phase 4-9)
+// -----------------------------------------
+model Course {
+  id             String    @id @default(uuid())
+  tenantId       String
+  tenant         Tenant    @relation(fields: [tenantId], references: [id])
+  courseCode     String
+  name           String
+  department     String
+  credits        Int
+  instructorId   String?
+  instructor     User?     @relation("CourseInstructor", fields: [instructorId], references: [id])
+  status         String    @default("PENDING_APPROVAL") // PENDING_APPROVAL, APPROVED
+  
+  enrollments    Enrollment[]
+  feeStructures  FeeStructure[]
+
+  @@unique([tenantId, courseCode])
+}
+
+model Enrollment {
+  id             String    @id @default(uuid())
+  studentId      String
+  student        User      @relation(fields: [studentId], references: [id])
+  courseId       String
+  course         Course    @relation(fields: [courseId], references: [id])
+  status         String    @default("ENROLLED") // ENROLLED, COMPLETED, DROPPED
+  enrolledAt     DateTime  @default(now())
+
+  @@unique([studentId, courseId])
+}
+
+// -----------------------------------------
+// BILLING SYSTEM (Phase 10)
+// -----------------------------------------
+model FeeStructure {
+  id             String    @id @default(uuid())
+  tenantId       String
+  tenant         Tenant    @relation(fields: [tenantId], references: [id])
+  courseId       String?   // If null, it's a global fee
+  course         Course?   @relation(fields: [courseId], references: [id])
+  title          String
+  amount         Float
+  currency       String    @default("NPR")
+  
+  createdAt      DateTime  @default(now())
+}
+
+model StudentInvoice {
+  id             String    @id @default(uuid())
+  studentId      String
+  student        User      @relation(fields: [studentId], references: [id])
+  title          String
+  amount         Float
+  currency       String    @default("NPR")
+  dueDate        DateTime
+  status         String    @default("UNPAID") // UNPAID, VERIFICATION_PENDING, PAID
+  receiptUrl     String?   // URL to uploaded bank voucher
+
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+}
+
+// -----------------------------------------
+// HRMS & PAYROLL (Phase 11)
+// -----------------------------------------
+model SalaryComponent {
+  id             String    @id @default(uuid())
+  tenantId       String
+  name           String
+  type           String    // EARNING, DEDUCTION
+  calculation    String    // FIXED, PERCENTAGE, SLAB_BASED
+  value          String    // e.g. "10", "10%", "SLAB"
+  isTaxable      Boolean   @default(false)
+}
+
+model Payslip {
+  id             String    @id @default(uuid())
+  employeeId     String
+  employee       User      @relation(fields: [employeeId], references: [id])
+  month          Int
+  year           Int
+  baseSalary     Float
+  grossEarnings  Float
+  totalDeductions Float
+  netSalary      Float
+  status         String    @default("GENERATED") // GENERATED, PAID
+
+  createdAt      DateTime  @default(now())
+}
